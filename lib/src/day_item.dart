@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 /// Creates a Widget representing the day.
@@ -12,6 +13,9 @@ class DayItem extends StatelessWidget {
   final bool available;
   final Color? dotsColor;
   final Color? dayNameColor;
+  final bool? isAfter;
+  final TextStyle txtStyle;
+  final TextStyle shortNametxtStyle;
 
   const DayItem({
     Key? key,
@@ -25,25 +29,18 @@ class DayItem extends StatelessWidget {
     this.available = true,
     this.dotsColor,
     this.dayNameColor,
+    this.isAfter,
+    required this.txtStyle,
+    required this.shortNametxtStyle
   }) : super(key: key);
 
   final double height = 70.0;
   final double width = 60.0;
 
   _buildDay(BuildContext context) {
-    final textStyle = TextStyle(
-      color: available
-        ? dayColor ?? Theme.of(context).colorScheme.secondary
-        : dayColor?.withOpacity(0.5) ??
-        Theme.of(context).colorScheme.secondary.withOpacity(0.5),
-      fontSize: 32,
-      fontWeight: FontWeight.normal);
-    final selectedStyle = TextStyle(
-      color: activeDayColor ?? Colors.white,
-      fontSize: 32,
-      fontWeight: FontWeight.bold,
-      height: 0.8,
-    );
+    final textStyle = txtStyle.copyWith(color:isAfter! ? Color(0xffAAAAAA) : Color(0xff212121) );
+
+    final selectedStyle =  txtStyle.copyWith(color:activeDayColor ?? Colors.white,);
 
     return GestureDetector(
       onTap: available ? onTap as void Function()? : null,
@@ -59,25 +56,26 @@ class DayItem extends StatelessWidget {
         width: width,
         child: Column(
           children: <Widget>[
-            if (isSelected) ...[
-              SizedBox(height: 7),
-              _buildDots(),
-              SizedBox(height: 12),
-            ] else
-              SizedBox(height: 14),
+            // if (isSelected) ...[
+            //   SizedBox(height: 7),
+            //   _buildDots(),
+            //   SizedBox(height: 12),
+            // ] else
+              SizedBox(height: 5),
+            // Text(
+            //   dayNumber.toString(),
+            //   style: isSelected ? selectedStyle : textStyle,
+            // ),
+            // if (isSelected)
+              Text(
+                shortName.substring(0,1),
+                style: shortNametxtStyle.copyWith(color: isSelected ? dayNameColor ?? activeDayColor ?? Colors.white : Color(0xffBCC1CD),)
+              ),
+            SizedBox(height: 15,),
             Text(
               dayNumber.toString(),
               style: isSelected ? selectedStyle : textStyle,
             ),
-            if (isSelected)
-              Text(
-                shortName,
-                style: TextStyle(
-                  color: dayNameColor ?? activeDayColor ?? Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                ),
-              ),
           ],
         ),
       ),

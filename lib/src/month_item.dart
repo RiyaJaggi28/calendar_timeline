@@ -6,12 +6,14 @@ class MonthItem extends StatelessWidget {
   final Function onTap;
   final bool isSelected;
   final Color? color;
+  final String? year;
 
   MonthItem({
     required this.name,
     required this.onTap,
     this.isSelected = false,
-    this.color
+    this.color,
+    this.year
   });
 
   @override
@@ -19,7 +21,7 @@ class MonthItem extends StatelessWidget {
     return GestureDetector(
       onTap: this.onTap as void Function()?,
       child: Text(
-        this.name.toUpperCase(),
+        this.name + " $year",
         style: TextStyle(
           fontSize: 14,
           color: color ?? Colors.black87,

@@ -81,6 +81,8 @@ class _HomePageState extends State<HomePage> {
               dotsColor: Color(0xFF333A47),
               selectableDayPredicate: (date) => date.day != 23,
               locale: 'en',
+              textStyle: TextStyle(fontSize: 14),
+              shortNametxtStyle: TextStyle(fontSize: 5),
             ),
             SizedBox(height: 20),
             Padding(

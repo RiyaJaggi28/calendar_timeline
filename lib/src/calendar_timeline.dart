@@ -29,6 +29,8 @@ class CalendarTimeline extends StatefulWidget {
   final Color? dotsColor;
   final Color? dayNameColor;
   final String? locale;
+  final TextStyle textStyle;
+  final TextStyle shortNametxtStyle;
 
   /// If true, it will show a separate row for the years.
   /// It defaults to false
@@ -50,6 +52,8 @@ class CalendarTimeline extends StatefulWidget {
     this.dayNameColor,
     this.locale,
     this.showYears = false,
+    required this.textStyle,
+    required this.shortNametxtStyle
   })  : assert(
           initialDate.difference(firstDate).inDays >= 0,
           'initialDate must be on or after firstDate',
@@ -162,6 +166,9 @@ class _CalendarTimelineState extends State<CalendarTimeline> {
                 activeDayBackgroundColor: widget.activeBackgroundDayColor,
                 dotsColor: widget.dotsColor,
                 dayNameColor: widget.dayNameColor,
+                isAfter: _days[index].isAfter(widget.initialDate),
+                txtStyle: widget.textStyle,
+                shortNametxtStyle: widget.shortNametxtStyle,
               ),
               if (index == _days.length - 1)
                 SizedBox(
@@ -191,7 +198,7 @@ class _CalendarTimelineState extends State<CalendarTimeline> {
         itemBuilder: (BuildContext context, int index) {
           final currentDate = _months[index];
           final monthName = DateFormat.MMMM(_locale).format(currentDate);
-
+          final year = DateFormat.y(_locale).format(currentDate);
           return Padding(
             padding: const EdgeInsets.only(right: 12.0, left: 4.0),
             child: Row(
@@ -215,6 +222,7 @@ class _CalendarTimelineState extends State<CalendarTimeline> {
                   name: monthName,
                   onTap: () => _goToActualMonth(index),
                   color: widget.monthColor,
+                  year: year,
                 ),
                 if (index == _months.length - 1)
                   SizedBox(

@@ -31,6 +31,7 @@ class CalendarTimeline extends StatefulWidget {
   final String? locale;
   final TextStyle textStyle;
   final TextStyle shortNametxtStyle;
+  final TextStyle monthNameTextStyle;
 
   /// If true, it will show a separate row for the years.
   /// It defaults to false
@@ -53,7 +54,8 @@ class CalendarTimeline extends StatefulWidget {
     this.locale,
     this.showYears = false,
     required this.textStyle,
-    required this.shortNametxtStyle
+    required this.shortNametxtStyle,
+    required this.monthNameTextStyle
   })  : assert(
           initialDate.difference(firstDate).inDays >= 0,
           'initialDate must be on or after firstDate',
@@ -223,6 +225,7 @@ class _CalendarTimelineState extends State<CalendarTimeline> {
                   onTap: () => _goToActualMonth(index),
                   color: widget.monthColor,
                   year: year,
+                  monthNameTextStyle: widget.monthNameTextStyle,
                 ),
                 if (index == _months.length - 1)
                   SizedBox(
@@ -381,11 +384,14 @@ class _CalendarTimelineState extends State<CalendarTimeline> {
   }
 
   _goToActualDay(int index) {
-    _moveToDayIndex(index);
     _daySelectedIndex = index;
     _selectedDate = _days[index];
-    widget.onDateSelected(_selectedDate);
-    setState(() {});
+
+    if(_selectedDate!.isBefore(widget.initialDate)){
+      _moveToDayIndex(index);
+      widget.onDateSelected(_selectedDate);
+      setState(() {});
+    }
   }
 
   void _moveToDayIndex(int index) {

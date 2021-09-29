@@ -83,6 +83,7 @@ class _HomePageState extends State<HomePage> {
               locale: 'en',
               textStyle: TextStyle(fontSize: 14),
               shortNametxtStyle: TextStyle(fontSize: 5),
+              monthNameTextStyle: TextStyle(fontSize: 10),
             ),
             SizedBox(height: 20),
             Padding(

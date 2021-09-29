@@ -24,7 +24,7 @@ class MonthItem extends StatelessWidget {
       onTap: this.onTap as void Function()?,
       child: Text(
         this.name + " $year",
-        style: monthNameTextStyle.copyWith( color: color ?? Colors.black87, fontWeight: this.isSelected ? FontWeight.bold : FontWeight.w300,)
+        style: monthNameTextStyle.copyWith( color: color ?? Colors.black87)
       ),
     );
   }

@@ -168,7 +168,7 @@ class _CalendarTimelineState extends State<CalendarTimeline> {
                 activeDayBackgroundColor: widget.activeBackgroundDayColor,
                 dotsColor: widget.dotsColor,
                 dayNameColor: widget.dayNameColor,
-                isAfter: _days[index].isAfter(widget.initialDate),
+                isAfter:_days[index] == widget.initialDate ? false :  _days[index].isAfter(widget.initialDate),
                 txtStyle: widget.textStyle,
                 shortNametxtStyle: widget.shortNametxtStyle,
               ),

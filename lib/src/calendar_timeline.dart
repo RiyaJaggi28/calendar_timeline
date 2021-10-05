@@ -168,7 +168,7 @@ class _CalendarTimelineState extends State<CalendarTimeline> {
                 activeDayBackgroundColor: widget.activeBackgroundDayColor,
                 dotsColor: widget.dotsColor,
                 dayNameColor: widget.dayNameColor,
-                isAfter:_days[index] == widget.initialDate ? false :  _days[index].isAfter(widget.initialDate),
+                isAfter:_days[index] == widget.initialDate ? false :  _days[index].isAfter(DateTime.now()),
                 txtStyle: widget.textStyle,
                 shortNametxtStyle: widget.shortNametxtStyle,
               ),
@@ -387,7 +387,7 @@ class _CalendarTimelineState extends State<CalendarTimeline> {
     _daySelectedIndex = index;
     _selectedDate = _days[index];
 
-    if(_selectedDate!.isBefore(widget.initialDate)){
+    if(_selectedDate!.isBefore(DateTime.now())){
       _moveToDayIndex(index);
       widget.onDateSelected(_selectedDate);
       setState(() {});
